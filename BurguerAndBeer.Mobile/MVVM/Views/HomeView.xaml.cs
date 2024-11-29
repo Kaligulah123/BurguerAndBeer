@@ -5,13 +5,15 @@ namespace BurguerAndBeer.Mobile.MVVM.Views;
 public partial class HomeView : ContentPage
 {
     private readonly HomeViewModel _homeViewModel;
+    private readonly ProfileViewModel _profileViewModel;
 
     private const uint AnimationDuration = 500u;
 
-    public HomeView(HomeViewModel homeViewModel)
+    public HomeView(HomeViewModel homeViewModel, ProfileViewModel profileViewModel)
 	{
 		InitializeComponent();
         BindingContext = _homeViewModel = homeViewModel;
+        _profileViewModel = profileViewModel;
     }
 
     protected override async void OnAppearing()
@@ -26,11 +28,7 @@ public partial class HomeView : ContentPage
         _ = MainContentGrid.RotateYTo(-45, 500, Easing.CubicIn);      
         _ = MainContentGrid.FadeTo(0.8, AnimationDuration);
     }
-
-    private void GridArea_Tapped(System.Object sender, System.EventArgs e)
-    {
-        CloseMenu();
-    }
+  
     private void CloseMenu()
     {
         //Close the menu and bring back back the main content
@@ -38,5 +36,10 @@ public partial class HomeView : ContentPage
         _ = MainContentGrid.TranslateTo(0, 0, AnimationDuration, Easing.CubicIn);
         _ = MainContentGrid.ScaleTo(1, AnimationDuration);
         _ = MainContentGrid.RotateYTo(0, 500, Easing.CubicIn);
+    }  
+
+    private void Cross_Clicked(object sender, EventArgs e)
+    {
+        CloseMenu();
     }
 }

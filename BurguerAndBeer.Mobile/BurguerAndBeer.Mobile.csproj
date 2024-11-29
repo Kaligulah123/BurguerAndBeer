@@ -62,6 +62,7 @@
 	  <None Remove="Resources\Images\burguer_and_beer.png" />
 	  <None Remove="Resources\Images\cart.png" />
 	  <None Remove="Resources\Images\chapa_cerveza.png" />
+	  <None Remove="Resources\Images\cross.png" />
 	  <None Remove="Resources\Images\hamburguesa.png" />
 	  <None Remove="Resources\Images\home.png" />
 	  <None Remove="Resources\Images\logout.png" />
@@ -74,6 +75,7 @@
 	  <None Remove="Resources\Images\plus_circle.png" />
 	  <None Remove="Resources\Images\plus_square.png" />
 	  <None Remove="Resources\Images\right_arrow.png" />
+	  <None Remove="Resources\Images\spreadsheet.png" />
 	  <None Remove="Resources\Images\trash.png" />
 	  <None Remove="Resources\Images\user.png" />
 	  <None Remove="Resources\Images\user_circle.png" />
