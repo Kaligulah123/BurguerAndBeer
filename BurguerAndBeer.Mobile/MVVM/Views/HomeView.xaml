@@ -104,7 +104,11 @@
                         Text="{Binding Name}"
                         VerticalOptions="Center" />
                 </HorizontalStackLayout>
-                <Label Style="{StaticResource MenuLbl}" Text="Change Password" />
+                <Label Style="{StaticResource MenuLbl}" Text="Change Password">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangePasswordCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <BoxView
                     Margin="0,10,100,20"
                     HeightRequest="1"

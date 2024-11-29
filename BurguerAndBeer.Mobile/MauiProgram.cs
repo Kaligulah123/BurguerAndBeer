@@ -54,16 +54,15 @@ namespace BurguerAndBeer.Mobile
             builder.Services.AddTransient<DetailsView>();
 
             builder.Services.AddSingleton<CartViewmodel>();
-            builder.Services.AddTransient<CartView>();
-
-            builder.Services.AddTransient<ProfileViewModel>();
-            builder.Services.AddTransient<ProfileView>();
+            builder.Services.AddTransient<CartView>();          
 
             builder.Services.AddSingleton<OrdersViewModel>();
             builder.Services.AddTransient<MyOrdersView>();
 
             builder.Services.AddTransient<OrderDetailsViewModel>();
             builder.Services.AddTransient<OrderDetailsView>();
+
+            builder.Services.AddTransient<ChangePasswordViewModel>();
 
             ConfigureRefit(builder.Services);
 

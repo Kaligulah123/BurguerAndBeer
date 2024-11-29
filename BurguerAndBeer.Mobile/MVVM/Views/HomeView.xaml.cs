@@ -4,16 +4,14 @@ namespace BurguerAndBeer.Mobile.MVVM.Views;
 
 public partial class HomeView : ContentPage
 {
-    private readonly HomeViewModel _homeViewModel;
-    private readonly ProfileViewModel _profileViewModel;
+    private readonly HomeViewModel _homeViewModel;   
 
     private const uint AnimationDuration = 500u;
 
-    public HomeView(HomeViewModel homeViewModel, ProfileViewModel profileViewModel)
+    public HomeView(HomeViewModel homeViewModel)
 	{
 		InitializeComponent();
-        BindingContext = _homeViewModel = homeViewModel;
-        _profileViewModel = profileViewModel;
+        BindingContext = _homeViewModel = homeViewModel;        
     }
 
     protected override async void OnAppearing()

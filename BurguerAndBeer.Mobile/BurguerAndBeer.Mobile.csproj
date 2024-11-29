@@ -114,9 +114,6 @@
 	  <MauiXaml Update="MVVM\Views\Popups\ChangePasswordPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\Views\ProfileView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\SigninView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

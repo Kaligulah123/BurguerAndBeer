@@ -66,5 +66,22 @@ namespace BurguerAndBeer.Api.Services
 
             return GenerateAuthResponse(dbUser);
         }
+
+        public async Task<ResultDto> ChangePasswordAsync(ChangePasswordDto dto, Guid userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user is null)
+                return ResultDto.Failure("User does not exist");
+
+            if(!_passwordService.AreEqual(dto.OldPassword, user.Salt, user.Hash))
+            {
+                return ResultDto.Failure("Incorrect password");
+            }
+
+            (user.Salt, user.Hash) = _passwordService.GenerateSaltAndHash(dto.NewPassword);
+
+            await _context.SaveChangesAsync();
+            return ResultDto.Success();
+        }
     }
 }

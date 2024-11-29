@@ -1,7 +1,9 @@
 ﻿using BurguerAndBeer.Mobile.MVVM.Models;
 using BurguerAndBeer.Mobile.MVVM.Views;
+using BurguerAndBeer.Mobile.MVVM.Views.Popups;
 using BurguerAndBeer.Mobile.Services;
 using BurguerAndBeer.Shared.Dtos;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -16,7 +18,7 @@ using System.Xml.Linq;
 
 namespace BurguerAndBeer.Mobile.MVVM.ViewModels
 {
-    public partial class HomeViewModel(IBurguerApi burguerApi, IBeerApi beerApi, IChipsApi chipsApi, IDessertApi dessertApi, ICategoryApi categoryApi, AuthService authService) : BaseViewModel
+    public partial class HomeViewModel(IBurguerApi burguerApi, IBeerApi beerApi, IChipsApi chipsApi, IDessertApi dessertApi, ICategoryApi categoryApi, AuthService authService, ChangePasswordViewModel changePasswordViewModel) : BaseViewModel
     {
         private readonly IBurguerApi _burguerApi = burguerApi;
         private readonly IBeerApi _beerApi = beerApi;
@@ -24,6 +26,7 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         private readonly IDessertApi _dessertApi = dessertApi;
         private readonly ICategoryApi _categoryApi = categoryApi;
         private readonly AuthService _authService = authService;
+        private readonly ChangePasswordViewModel _changePasswordViewModel = changePasswordViewModel;
 
         [ObservableProperty]
         private BurguerDto[] _burguers = [];
@@ -197,6 +200,12 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         {
             _authService.Signout();
             await GoToAsync($"//{nameof(OnboardingView)}");
+        }
+
+        [RelayCommand]
+        private async Task ChangePasswordAsync()
+        {
+            await Shell.Current.CurrentPage.ShowPopupAsync(new ChangePasswordPopup(_changePasswordViewModel));
         }
     }
 }
