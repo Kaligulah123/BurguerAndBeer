@@ -28,8 +28,8 @@
                     <Border
                         Padding="10"
                         BackgroundColor="{StaticResource Gray600}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 10">
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="0">
                         <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="10">
                             <Image
                                 Aspect="AspectFit"

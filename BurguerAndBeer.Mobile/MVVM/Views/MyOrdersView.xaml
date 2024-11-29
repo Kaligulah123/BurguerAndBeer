@@ -10,68 +10,67 @@
     Title="My Orders"
     x:DataType="vm:OrdersViewModel"
     BackgroundColor="Black">
-    <RefreshView Command="{Binding LoadOrdersCommand}" IsRefreshing="{Binding IsBusy}">
-        <Grid>
-            <ScrollView>
-                <CollectionView ItemsSource="{Binding Orders}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="dto:OrderDto">
-                            <Border
-                                Margin="0,2"
-                                Padding="10"
-                                BackgroundColor="{StaticResource Gray600}"
-                                StrokeShape="RoundRectangle 10">
-                                <Grid
-                                    ColumnDefinitions="*,Auto,Auto"
-                                    ColumnSpacing="10"
-                                    RowSpacing="2">
-                                    <Grid RowDefinitions="*,Auto">
-                                        <Label
-                                            FontAttributes="Bold"
-                                            FontSize="15"
-                                            Text="{Binding Id, StringFormat='Order Id: {0}'}"
-                                            TextColor="{StaticResource YellowBase}" />
-                                        <Label Grid.Row="1" Text="{Binding ItemsCount, StringFormat='{0} Item(s)'}" />
-                                    </Grid>
-                                    <Grid
-                                        Grid.Column="1"
-                                        RowDefinitions="*,*"
-                                        RowSpacing="2">
-                                        <Label
-                                            FontAttributes="Bold"
-                                            FontSize="15"
-                                            HorizontalOptions="End"
-                                            Text="{Binding TotalPrice, StringFormat='{0:C}'}"
-                                            TextColor="{StaticResource YellowBase}"
-                                            VerticalOptions="Center" />
-                                        <Label Grid.Row="1" Text="{Binding OrderAt, StringFormat='{0: MMM dd yyyy, hh:mm}'}" />
-                                    </Grid>
-                                    <Image
-                                        Grid.Column="2"
-                                        HeightRequest="40"
-                                        Source="right_arrow"
-                                        VerticalOptions="Center">
-                                        <Image.Behaviors>
-                                            <toolkit:IconTintColorBehavior TintColor="{StaticResource YellowBase}" />
-                                        </Image.Behaviors>
-                                    </Image>
+    <Grid>
+        <ScrollView>
+            <CollectionView ItemsSource="{Binding Orders}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="dto:OrderDto">
+                        <Border
+                            Margin="0,2"
+                            Padding="10"
+                            BackgroundColor="{StaticResource Gray600}"
+                            StrokeShape="RoundRectangle 10">
+                            <Grid
+                                ColumnDefinitions="*,Auto,Auto"
+                                ColumnSpacing="10"
+                                RowSpacing="2">
+                                <Grid RowDefinitions="*,Auto">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="15"
+                                        Text="{Binding Id, StringFormat='Order Id: {0}'}"
+                                        TextColor="{StaticResource YellowBase}" />
+                                    <Label Grid.Row="1" Text="{Binding ItemsCount, StringFormat='{0} Item(s)'}" />
                                 </Grid>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:OrdersViewModel}}, Path=GoToOrderDetailsViewCommand}" CommandParameter="{Binding Id}" />
-                                </Border.GestureRecognizers>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>
-            <!--<ActivityIndicator
-                HeightRequest="50"
-                IsRunning="{Binding IsBusy}"
-                Color="{StaticResource YellowBase}" />-->
+                                <Grid
+                                    Grid.Column="1"
+                                    RowDefinitions="*,*"
+                                    RowSpacing="2">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="15"
+                                        HorizontalOptions="End"
+                                        Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                                        TextColor="{StaticResource YellowBase}"
+                                        VerticalOptions="Center" />
+                                    <Label Grid.Row="1" Text="{Binding OrderAt, StringFormat='{0: MMM dd yyyy, hh:mm}'}" />
+                                </Grid>
+                                <Image
+                                    Grid.Column="2"
+                                    HeightRequest="40"
+                                    Source="right_arrow"
+                                    VerticalOptions="Center">
+                                    <Image.Behaviors>
+                                        <toolkit:IconTintColorBehavior TintColor="{StaticResource YellowBase}" />
+                                    </Image.Behaviors>
+                                </Image>
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:OrdersViewModel}}, Path=GoToOrderDetailsViewCommand}" CommandParameter="{Binding Id}" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <ActivityIndicator
+            HeightRequest="50"
+            IsRunning="{Binding IsBusy}"
+            Color="{StaticResource YellowBase}" />
 
-        </Grid>
-    </RefreshView>
+    </Grid>
+
 </ContentPage>

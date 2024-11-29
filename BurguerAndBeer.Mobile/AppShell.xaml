@@ -31,10 +31,10 @@
             Icon="cart"
             Route="CartView" />
         <ShellContent
-            Title="Profile"
-            ContentTemplate="{DataTemplate views:ProfileView}"
-            Icon="user"
-            Route="ProfileView" />
+            Title="My Orders"
+            ContentTemplate="{DataTemplate views:MyOrdersView}"
+            Icon="spreadsheet"
+            Route="MyOrdersView" />
     </TabBar>
 
     <MenuItem

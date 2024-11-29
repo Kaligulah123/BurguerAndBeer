@@ -19,6 +19,7 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         private readonly DatabaseService _databaseService;
         private readonly IOrderApi _orderApi;
         private readonly AuthService _authService;
+        private readonly OrdersViewModel _ordersViewModel;
 
         [ObservableProperty]
         private double _priceTotalOrder;
@@ -26,11 +27,12 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         public static int TotalCartCount { get; set; }
         public static event EventHandler<int>? TotalCartCountChanged;
 
-        public CartViewmodel(DatabaseService databaseService, IOrderApi orderApi, AuthService authService)
+        public CartViewmodel(DatabaseService databaseService, IOrderApi orderApi, AuthService authService, OrdersViewModel ordersViewModel)
         {
             _databaseService = databaseService;
             _orderApi = orderApi;
             _authService = authService;
+            _ordersViewModel = ordersViewModel;
         }
 
         public async Task InitializeCartAsync()
@@ -48,15 +50,7 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
             var existingItem = CartItems.FirstOrDefault(i => i.ItemId == itemDto.Id && i.CategoryId == itemDto.CategoryId);
 
             if (existingItem is not null)
-            {
-                //var dbCartItem = await _databaseService.GetCartItemAsync(existingItem);              
-
-                //dbCartItem.Quantity++;
-
-                //existingItem.Quantity = dbCartItem.Quantity;
-
-                //await _databaseService.UpdateCartItem(dbCartItem);
-
+            {             
                 await UpdateQuantityAsync(existingItem, option: true);
 
                 await ShowToastAsync("Item quantity updated");            
@@ -136,6 +130,7 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
 
                 await _databaseService.ClearCartAsync();
                 CartItems.Clear();
+                _ordersViewModel.IsInitialized = false;
                 await ShowToastAsync("Order sent!!!!");
                 NotifyCartCountChange();
             }

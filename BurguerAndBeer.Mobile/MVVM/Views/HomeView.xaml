@@ -50,24 +50,12 @@
     <Grid IgnoreSafeArea="{OnPlatform Android=False, iOS=True}">
 
         <!--  Profile Grid  -->
-        <!--<Grid x:Name="MenuContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}">
-            <Label Text="Menu Profile" />
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="GridArea_Tapped" />
-            </Grid.GestureRecognizers>
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Offset="0.0" Color="#000000" />
-                    <GradientStop Offset="1.0" Color="{StaticResource Gray600}" />
-                </LinearGradientBrush>
-            </Grid.Background>
-        </Grid>-->
-
         <Grid
+            x:Name="MenuContainer"
             Padding="15,25,15,15"
             IgnoreSafeArea="{OnPlatform Android=False,
-                                        iOS=True}"
-            RowDefinitions="Auto,*">
+                                        iOS=True}">
+
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Offset="0.0" Color="#000000" />
@@ -78,78 +66,56 @@
             <ImageButton
                 Padding="5"
                 BackgroundColor="{StaticResource YellowBase}"
+                Clicked="Cross_Clicked"
                 CornerRadius="20"
                 HeightRequest="40"
                 HorizontalOptions="Start"
                 Source="cross"
-                VerticalOptions="Center"
-                WidthRequest="40"
-                Clicked="Cross_Clicked">
+                VerticalOptions="Start"
+                WidthRequest="40">
                 <ImageButton.Behaviors>
                     <toolkit:IconTintColorBehavior TintColor="Black" />
                 </ImageButton.Behaviors>
                 <ImageButton.Shadow>
                     <Shadow />
-                </ImageButton.Shadow>               
+                </ImageButton.Shadow>
             </ImageButton>
 
-
-
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="15">
-                <Border
-                    BackgroundColor="{StaticResource Gray600}"
-                    HeightRequest="50"
-                    StrokeShape="RoundRectangle 25"
-                    WidthRequest="50">
-                    <!--<Label
-                        FontAttributes="Bold"
-                        FontSize="25"
-                        HorizontalOptions="Center"
-                        Text="{Binding Initials}"
-                        VerticalOptions="Center" />-->
+            <VerticalStackLayout Margin="0,80,0,0" VerticalOptions="Start">
+                <HorizontalStackLayout
+                    Margin="0,0,0,25"
+                    HorizontalOptions="Start"
+                    Spacing="15">
+                    <Border
+                        BackgroundColor="{StaticResource Gray600}"
+                        HeightRequest="50"
+                        StrokeShape="RoundRectangle 25"
+                        WidthRequest="50">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="25"
+                            HorizontalOptions="Center"
+                            Text="{Binding Initials}"
+                            VerticalOptions="Center" />
+                    </Border>
                     <Label
                         FontAttributes="Bold"
-                        FontSize="25"
-                        HorizontalOptions="Center"
-                        Text="HV"
+                        FontSize="20"
+                        Text="{Binding Name}"
                         VerticalOptions="Center" />
-                </Border>
-                <!--<Label
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    Text="{Binding Name}"
-                    VerticalOptions="Center" />-->
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    Text="Hugo Vazquez"
-                    VerticalOptions="Center" />
-
-            </HorizontalStackLayout>
-
-            <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
-
-                <Label Style="{StaticResource MenuLbl}" Text="My Orders">
-                    <!--<Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToMyOrdersCommand}" />
-                    </Label.GestureRecognizers>-->
-                </Label>
-                <BoxView
-                    Margin="0,10,80,20"
-                    HeightRequest="1"
-                    Color="White" />
+                </HorizontalStackLayout>
                 <Label Style="{StaticResource MenuLbl}" Text="Change Password" />
                 <BoxView
-                    Margin="0,10,80,20"
+                    Margin="0,10,100,20"
                     HeightRequest="1"
                     Color="White" />
                 <Label Style="{StaticResource MenuLbl}" Text="Image Profile" />
                 <BoxView
-                    Margin="0,10,80,20"
+                    Margin="0,10,100,20"
                     HeightRequest="1"
                     Color="White" />
                 <HorizontalStackLayout
-                    Margin="0,50,0,0"
+                    Margin="0,60,0,0"
                     HorizontalOptions="Start"
                     Spacing="10"
                     VerticalOptions="Center">

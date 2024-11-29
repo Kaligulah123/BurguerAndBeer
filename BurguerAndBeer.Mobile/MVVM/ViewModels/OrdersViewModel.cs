@@ -20,6 +20,8 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         [ObservableProperty]
         private OrderDto[] _orders = [];
 
+        public bool IsInitialized;
+
         public OrdersViewModel(AuthService authService, IOrderApi orderApi)
         {
             _authService = authService;
@@ -31,6 +33,11 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         [RelayCommand]
         private async Task LoadOrdersAsync()
         {
+            if (IsInitialized == true)
+                return;
+
+            Orders = [];
+            IsInitialized = true;
             IsBusy = true;
             try
             {
@@ -42,6 +49,7 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
             }
             catch (ApiException ex)
             {
+                IsInitialized = false;
                 await HandleApiExceptionAsync(ex, () => _authService.Signout());
             }
             finally

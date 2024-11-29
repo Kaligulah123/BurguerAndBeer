@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace BurguerAndBeer.Mobile.MVVM.ViewModels
 {
@@ -45,6 +46,23 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         [ObservableProperty]
         private string _userName = string.Empty;
 
+        [ObservableProperty, NotifyPropertyChangedFor(nameof(Initials))]
+        private string _name = "";
+        public string Initials
+        {
+            get
+            {
+                //Hugo Vazquez -> parts[0] = Hugo   parts[1] = Vazquez
+                var parts = Name.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length > 1)
+                {
+                    return $"{parts[0][0]}{parts[1][0]}".ToUpper(); // -> HV
+                }
+                //Hugo
+                return Name.Length > 1 ? Name[..1].ToUpper() : Name.ToUpper();
+            }
+        }
+
         [ObservableProperty]
         private bool _burguersIsVisible;
 
@@ -63,6 +81,8 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         public async Task InitializeAsync()
         {
             UserName = _authService.User!.Name;
+
+            Name = _authService.User!.Name;
 
             if (_isInitialized) return;
 
@@ -133,13 +153,7 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
 
             CurrentCategory = CategoriesCollection.First(c => c.Id == selectedCategory.Id);
 
-            CurrentCategory!.IsSelected = !CurrentCategory.IsSelected;
-
-            //var newIsSelected = !selectedCategory.IsSelected;
-
-            //CategoriesCollection = [.. CategoriesCollection.Select(c => {c.IsSelected = false; return c; })];
-
-            //selectedCategory.IsSelected = newIsSelected;
+            CurrentCategory!.IsSelected = !CurrentCategory.IsSelected;                      
 
             BurguersIsVisible = false;
             BeersIsVisible = false;
@@ -176,6 +190,13 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
             };   
 
             await GoToAsync(nameof(DetailsView), animate: true, parameters);   
+        }     
+
+        [RelayCommand]
+        private async Task SignoutAsync()
+        {
+            _authService.Signout();
+            await GoToAsync($"//{nameof(OnboardingView)}");
         }
     }
 }

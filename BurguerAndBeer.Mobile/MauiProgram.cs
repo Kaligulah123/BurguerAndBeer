@@ -59,30 +59,13 @@ namespace BurguerAndBeer.Mobile
             builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddTransient<ProfileView>();
 
-            builder.Services.AddTransient<OrdersViewModel>();
+            builder.Services.AddSingleton<OrdersViewModel>();
             builder.Services.AddTransient<MyOrdersView>();
 
             builder.Services.AddTransient<OrderDetailsViewModel>();
             builder.Services.AddTransient<OrderDetailsView>();
 
             ConfigureRefit(builder.Services);
-
-            // Aplicar la personalización del Entry
-//            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("MyCustomEntry", (handler, view) =>
-//            {
-//#if ANDROID
-//                var nativeEntry = handler.PlatformView;
-
-//                // Cambiar el color de la línea inferior
-//                if (nativeEntry != null)
-//                {
-//                    nativeEntry.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.ParseColor("#FFC71F")); // Color amarillo
-//                    nativeEntry.Invalidate(); // Forzar redibujo
-//                }
-//#endif
-//            });
-
-
 
             return builder.Build();
         }
