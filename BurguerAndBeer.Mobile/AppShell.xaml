@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BurguerAndBeer.Mobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:BurguerAndBeer.Mobile"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:views="clr-namespace:BurguerAndBeer.Mobile.MVVM.Views"
+    Title="BurguerAndBeer.Mobile"
+    Shell.FlyoutBehavior="Flyout">
+
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Black" StatusBarStyle="LightContent" />
+    </Shell.Behaviors>
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:OnboardingView}"
+        Route="OnboardingView"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
+
+    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate views:HomeView}"
+            Icon="home"
+            Route="HomeView" />
+        <ShellContent
+            Title="Cart"
+            ContentTemplate="{DataTemplate views:CartView}"
+            Icon="cart"
+            Route="CartView" />
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ProfileView}"
+            Icon="user"
+            Route="ProfileView" />
+    </TabBar>
+
+    <MenuItem
+        Clicked="SignoutMenuItem_Clicked"
+        IconImageSource="logout"
+        Text="Signout" />
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid
+                Padding="10"
+                ColumnDefinitions="Auto,*,Auto"
+                ColumnSpacing="15"
+                RowDefinitions="Auto, Auto"
+                RowSpacing="5">
+                <Image
+                    HeightRequest="24"
+                    Source="{Binding Icon}"
+                    WidthRequest="24" />
+                <Label
+                    Grid.Column="1"
+                    FontSize="16"
+                    Text="{Binding Title}"
+                    TextColor="{StaticResource BlackBase}" />
+                <Image
+                    Grid.Column="2"
+                    HeightRequest="24"
+                    Source="right_arrow"
+                    WidthRequest="24" />
+                <BoxView
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    HeightRequest="1" />
+
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid
+                Padding="10"
+                ColumnDefinitions="Auto,*"
+                ColumnSpacing="15"
+                RowSpacing="5">
+                <Image
+                    HeightRequest="24"
+                    Source="{Binding Icon}"
+                    WidthRequest="24" />
+                <Label
+                    Grid.Column="1"
+                    FontSize="16"
+                    Text="{Binding Text}"
+                    TextColor="{StaticResource BlackBase}" />
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+    <Shell.FlyoutHeader>
+        <Border
+            Padding="30"
+            BackgroundColor="{StaticResource Black}"
+            HeightRequest="250"
+            StrokeThickness="0">
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="250"
+                Source="burguer_and_beer" />
+        </Border>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <Border
+            Padding="10"
+            BackgroundColor="{StaticResource BlackBase}"
+            StrokeThickness="0">
+            <Label
+                FontAttributes="Bold"
+                FontSize="15"
+                HorizontalOptions="Center"
+                Text="Developed by Hugo Vazquez"
+                TextColor="White" />
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="FlyoutFooter_Tapped" />
+            </Border.GestureRecognizers>
+        </Border>
+    </Shell.FlyoutFooter>
+
+</Shell>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BurguerAndBeer.Mobile.MVVM.Views.SigninView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:BurguerAndBeer.Mobile.MVVM.ViewModels"
+    Title="SigninView"
+    x:DataType="viewmodels:AuthViewModel"
+    BackgroundColor="Black"
+    Shell.FlyoutBehavior="Disabled">
+
+    <Grid RowDefinitions=".4*,.4*,.2*">
+        <Image
+            Aspect="AspectFill"
+            HeightRequest="350"
+            Source="burguer_and_beer"
+            WidthRequest="350" />
+        <VerticalStackLayout
+            Grid.Row="1"
+            Padding="20"
+            Spacing="15"
+            VerticalOptions="Center">
+
+            <Entry
+                FontSize="18"
+                Keyboard="Email"
+                Placeholder="Email"
+                Text="{Binding Email}"
+                TextColor="White" />
+            <Entry
+                FontSize="18"
+                IsPassword="True"
+                Placeholder="Password"
+                Text="{Binding Password}"
+                TextColor="White" />
+
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            Grid.Row="2"
+            Padding="10"
+            Spacing="30">
+            <Label
+                FontAttributes="Bold"
+                FontSize="15"
+                Text="Existing user? Signup"
+                TextColor="{StaticResource YellowBase}"
+                TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SignupLabel_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Button
+                Command="{Binding SigninCommand}"
+                IsEnabled="{Binding CanSignin}"
+                Style="{StaticResource btn_base}"
+                Text="Signin" />
+
+        </VerticalStackLayout>
+
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsBusy}"
+            VerticalOptions="Center"
+            Color="{StaticResource YellowBase}" />
+    </Grid>
+
+</ContentPage>

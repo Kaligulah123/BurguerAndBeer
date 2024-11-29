@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BurguerAndBeer.Mobile.MVVM.Views.CartView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:BurguerAndBeer.Mobile.Converters"
+    xmlns:dto="clr-namespace:BurguerAndBeer.Shared.Dtos;assembly=BurguerAndBeer.Shared"
+    xmlns:models="clr-namespace:BurguerAndBeer.Mobile.MVVM.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:BurguerAndBeer.Mobile.MVVM.ViewModels"
+    Title="My Cart"
+    x:DataType="vm:CartViewmodel"
+    BackgroundColor="Black">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CategoryToImageConverter x:Key="CategoryToImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding ClearCartCommand}" Text="Clear Cart" />
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="10">
+        <CollectionView ItemsSource="{Binding CartItems}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:CartItem">
+                    <Border
+                        Padding="10"
+                        BackgroundColor="{StaticResource Gray600}"
+                        Stroke="{StaticResource Gray600}"
+                        StrokeShape="RoundRectangle 10">
+                        <Grid ColumnDefinitions="40,*,Auto,40" ColumnSpacing="10">
+                            <Image
+                                Aspect="AspectFit"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                Source="{Binding CategoryId, Converter={StaticResource CategoryToImageConverter}}"
+                                VerticalOptions="Center"
+                                WidthRequest="30">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="{StaticResource YellowBase}" />
+                                </Image.Behaviors>
+                            </Image>
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Margin="5,0,0,0"
+                                HorizontalOptions="Start"
+                                Spacing="10"
+                                VerticalOptions="Center">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="15"
+                                    HorizontalOptions="Start"
+                                    Text="{Binding Name}"
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
+                                <HorizontalStackLayout
+                                    HorizontalOptions="Start"
+                                    Spacing="15"
+                                    VerticalOptions="Center">
+                                    <ImageButton
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewmodel}}, Path=DecreaseQuantityCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Source="minus"
+                                        Style="{StaticResource QuantityBtnStyle}">
+                                        <ImageButton.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="Black" />
+                                        </ImageButton.Behaviors>
+                                    </ImageButton>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding Quantity}"
+                                        VerticalOptions="Center" />
+                                    <ImageButton
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewmodel}}, Path=IncreaseQuantityCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Source="plus"
+                                        Style="{StaticResource QuantityBtnStyle}">
+                                        <ImageButton.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="Black" />
+                                        </ImageButton.Behaviors>
+                                    </ImageButton>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+
+                            <Label
+                                Grid.Column="2"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="End"
+                                Text="{Binding PriceTotal, StringFormat='{0:C}'}"
+                                TextColor="{StaticResource YellowBase}"
+                                VerticalOptions="Center" />
+                            <ImageButton
+                                Grid.Column="3"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewmodel}}, Path=CleartCartItemCommand}"
+                                CommandParameter="{Binding .}"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                Source="trash"
+                                VerticalOptions="Center"
+                                WidthRequest="30">
+                                <ImageButton.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="Red" />
+                                </ImageButton.Behaviors>
+                            </ImageButton>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button
+            Margin="0,0,0,20"
+            Command="{Binding PlaceOrderCommand}"
+            HorizontalOptions="Start"
+            Style="{StaticResource btn_base}"
+            Text="Place Order"
+            VerticalOptions="End" />
+        <VerticalStackLayout
+            Margin="0,0,10,20"
+            HorizontalOptions="End"
+            VerticalOptions="End">
+            <Label
+                Grid.Column="2"
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="End"
+                Text="Total Price"
+                VerticalOptions="Center" />
+            <Label
+                Grid.Column="2"
+                FontAttributes="Bold"
+                FontSize="15"
+                HorizontalOptions="End"
+                Text="{Binding PriceTotalOrder, StringFormat='{0:C}'}"
+                TextColor="{StaticResource YellowBase}"
+                VerticalOptions="Center" />
+        </VerticalStackLayout>
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsBusy}"
+            VerticalOptions="Center"
+            Color="{StaticResource YellowBase}" />
+    </Grid>
+</ContentPage>

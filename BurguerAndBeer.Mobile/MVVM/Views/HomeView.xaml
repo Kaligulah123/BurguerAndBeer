@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BurguerAndBeer.Mobile.MVVM.Views.HomeView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dto="clr-namespace:BurguerAndBeer.Shared.Dtos;assembly=BurguerAndBeer.Shared"
+    xmlns:models="clr-namespace:BurguerAndBeer.Mobile.MVVM.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:BurguerAndBeer.Mobile.MVVM.ViewModels"
+    Title="HomeView"
+    x:DataType="vm:HomeViewModel"
+    BackgroundColor="Black">
+
+    <Shell.TitleView>
+        <HorizontalStackLayout
+            Padding="5"
+            HorizontalOptions="End"
+            Spacing="20"
+            VerticalOptions="Center">
+            <Label
+                HorizontalOptions="Center"
+                Text="{Binding UserName, StringFormat='Hello, {0}'}"
+                VerticalOptions="Center" />
+            <Border
+                Stroke="{StaticResource YellowBase}"
+                StrokeShape="RoundRectangle 25"
+                StrokeThickness="3">
+                <Image
+                    Aspect="AspectFit"
+                    BackgroundColor="White"
+                    HorizontalOptions="Center"
+                    Source="user"
+                    VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Profile_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Border>
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <Grid IgnoreSafeArea="{OnPlatform Android=False, iOS=True}">
+
+        <!--  Profile Grid  -->
+        <Grid x:Name="MenuContainer" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}">
+            <Label Text="Menu Profile" />
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="GridArea_Tapped" />
+            </Grid.GestureRecognizers>
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Offset="0.0" Color="#000000" />
+                    <GradientStop Offset="1.0" Color="{StaticResource Gray600}" />
+                </LinearGradientBrush>
+            </Grid.Background>
+        </Grid>
+
+        <!--  Main Content  -->
+        <Grid x:Name="MainContentGrid" IgnoreSafeArea="{OnPlatform Android=False, iOS=True}" Opacity="1" BackgroundColor="Black">
+            <ScrollView>
+                <VerticalStackLayout Padding="10" Spacing="10">
+                    <Label
+                        FontSize="Large"
+                        Text="What would you have today?"
+                        TextColor="{StaticResource YellowBase}" />
+                    <CollectionView
+                        HorizontalOptions="CenterAndExpand"
+                        ItemsSource="{Binding CategoriesCollection}"
+                        VerticalOptions="Center">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout HorizontalItemSpacing="15" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Categories">
+                                <Border
+                                    Padding="10"
+                                    BackgroundColor="{StaticResource Gray600}"
+                                    HeightRequest="70"
+                                    Stroke="White"
+                                    StrokeShape="RoundRectangle 10"
+                                    StrokeThickness="1"
+                                    WidthRequest="80">
+                                    <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="25"
+                                            Source="{Binding Image}">
+                                            <Image.Behaviors>
+                                                <toolkit:IconTintColorBehavior TintColor="White" />
+                                            </Image.Behaviors>
+                                        </Image>
+                                        <Label
+                                            Grid.Row="1"
+                                            FontSize="Micro"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding Name}" />
+                                    </VerticalStackLayout>
+                                    <Border.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsSelected}"
+                                            TargetType="Border"
+                                            Value="True">
+                                            <Setter Property="Stroke" Value="{StaticResource YellowBase}" />
+                                            <Setter Property="StrokeThickness" Value="2" />
+                                            <Setter Property="BackgroundColor" Value="{StaticResource YellowBase}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=CategoryChangedCommand}" CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <CollectionView
+                        IsVisible="{Binding BurguersIsVisible}"
+                        ItemTemplate="{StaticResource BurguerTemplate}"
+                        ItemsSource="{Binding Burguers}"
+                        Style="{StaticResource DefaultCollectionViewStyle}" />
+                    <CollectionView
+                        IsVisible="{Binding BeersIsVisible}"
+                        ItemTemplate="{StaticResource BeerTemplate}"
+                        ItemsSource="{Binding Beers}"
+                        Style="{StaticResource DefaultCollectionViewStyle}" />
+                    <CollectionView
+                        IsVisible="{Binding ChipsIsVisible}"
+                        ItemTemplate="{StaticResource ChipsTemplate}"
+                        ItemsSource="{Binding Chips}"
+                        Style="{StaticResource DefaultCollectionViewStyle}" />
+                    <CollectionView
+                        IsVisible="{Binding DessertsIsVisible}"
+                        ItemTemplate="{StaticResource DessertTemplate}"
+                        ItemsSource="{Binding Desserts}"
+                        Style="{StaticResource DefaultCollectionViewStyle}" />
+                </VerticalStackLayout>
+            </ScrollView>
+            <ActivityIndicator
+                HeightRequest="50"
+                IsRunning="{Binding IsBusy}"
+                Color="{StaticResource YellowBase}" />
+        </Grid>
+
+
+
+    </Grid>
+
+
+</ContentPage>
