@@ -6,7 +6,7 @@ public partial class HomeView : ContentPage
 {
     private readonly HomeViewModel _homeViewModel;   
 
-    private const uint AnimationDuration = 500u;
+    private const uint AnimationDuration = 500u;  
 
     public HomeView(HomeViewModel homeViewModel)
 	{
@@ -40,4 +40,25 @@ public partial class HomeView : ContentPage
     {
         CloseMenu();
     }
+
+    private async void ChangeProfileImage_Tapped(object sender, TappedEventArgs e)
+    {
+        var fileResult = await MediaPicker.PickPhotoAsync();
+
+        if (fileResult != null)
+        {
+            //Upload/Save image
+            var imageStream = await fileResult.OpenReadAsync();
+
+            var localPath = Path.Combine(FileSystem.AppDataDirectory, fileResult.FileName);
+
+            using var fs = new FileStream(localPath, FileMode.Create, FileAccess.Write);
+
+            await imageStream.CopyToAsync(fs);
+
+            //Update imageIcon on the UI         
+
+            _homeViewModel.ImageProfile = localPath;
+        }
+    }    
 }

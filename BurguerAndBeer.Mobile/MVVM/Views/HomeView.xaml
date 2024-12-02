@@ -31,13 +31,15 @@
                 VerticalOptions="Center" />
             <Border
                 Stroke="{StaticResource YellowBase}"
-                StrokeShape="RoundRectangle 25"
+                StrokeShape="RoundRectangle 20"
                 StrokeThickness="3">
-                <Image
-                    Aspect="AspectFit"
+                <Image                 
                     BackgroundColor="White"
+                    Aspect="Center"
+                   HeightRequest="40"
+                    WidthRequest="40"
                     HorizontalOptions="Center"
-                    Source="user"
+                    Source="{Binding ImageProfile}"
                     VerticalOptions="Center">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Profile_Tapped" />
@@ -113,7 +115,11 @@
                     Margin="0,10,100,20"
                     HeightRequest="1"
                     Color="White" />
-                <Label Style="{StaticResource MenuLbl}" Text="Image Profile" />
+                <Label Style="{StaticResource MenuLbl}" Text="Image Profile">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ChangeProfileImage_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <BoxView
                     Margin="0,10,100,20"
                     HeightRequest="1"

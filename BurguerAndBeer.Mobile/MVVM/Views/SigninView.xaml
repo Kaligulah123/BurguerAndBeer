@@ -58,6 +58,7 @@
         </VerticalStackLayout>
 
         <ActivityIndicator
+            Grid.Row="1"
             HorizontalOptions="Center"
             IsRunning="{Binding IsBusy}"
             VerticalOptions="Center"

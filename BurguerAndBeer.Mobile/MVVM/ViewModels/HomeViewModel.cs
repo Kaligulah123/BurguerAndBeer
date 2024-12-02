@@ -29,6 +29,9 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
         private readonly ChangePasswordViewModel _changePasswordViewModel = changePasswordViewModel;
 
         [ObservableProperty]
+        public string imageProfile = "user_circle";
+
+        [ObservableProperty]
         private BurguerDto[] _burguers = [];
 
         [ObservableProperty]

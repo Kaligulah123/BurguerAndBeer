@@ -56,6 +56,7 @@ namespace BurguerAndBeer.Mobile.MVVM.ViewModels
                 }
 
                 await ShowAlertAsync("Success","Password changed succesfully!");
+                OldPassword = NewPassword = ConfirmNewPassword = null;
             }
             catch (ApiException ex)
             {
