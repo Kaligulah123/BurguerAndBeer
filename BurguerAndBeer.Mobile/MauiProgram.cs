@@ -100,7 +100,8 @@ namespace BurguerAndBeer.Mobile
 
                 if(DeviceInfo.DeviceType == DeviceType.Physical)
                 {
-                    baseUrl = "https://pxkr2mn3-7212.uks1.devtunnels.ms";
+                    //baseUrl = "https://pxkr2mn3-7212.uks1.devtunnels.ms";
+                    baseUrl = "https://www.burgercommerce.somee.com";
                 }
 
                 httpClient.BaseAddress = new Uri(baseUrl);

@@ -23,23 +23,27 @@
             <Entry
                 FontSize="18"
                 Placeholder="Name"
-                Text="{Binding Name}" />
+                Text="{Binding Name}"
+                TextColor="White" />
             <Entry
                 FontSize="18"
                 Keyboard="Email"
                 Placeholder="Email"
-                Text="{Binding Email}" />
+                Text="{Binding Email}"
+                TextColor="White" />
             <Entry
                 FontSize="18"
                 IsPassword="True"
                 Placeholder="Password"
-                Text="{Binding Password}" />
+                Text="{Binding Password}"
+                TextColor="White" />
             <Editor
                 AutoSize="TextChanges"
                 FontSize="18"
                 MaxLength="150"
                 Placeholder="Address"
-                Text="{Binding Address}" />
+                Text="{Binding Address}"
+                TextColor="White" />
 
         </VerticalStackLayout>
         <VerticalStackLayout

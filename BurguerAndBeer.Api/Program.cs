@@ -49,6 +49,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(builder =>
+    builder.WithOrigins("http://www.burguercommerce.somee.com")
+           .AllowAnyHeader()
+           .AllowAnyMethod());
+
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 
